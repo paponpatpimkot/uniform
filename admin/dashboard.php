@@ -139,7 +139,7 @@
             <div class="small-box bg-warning">
               <div class="inner">
                 <?php  
-                  $shopf=mysqli_num_rows($con->query("select * from order_list where pro_id='200'"));
+                  $shopf=mysqli_num_rows($con->query("select * from order_list where pro_id='2004'"));
                 ?>
                 <h3><?php echo number_format($shopf)?> </h3>
 
