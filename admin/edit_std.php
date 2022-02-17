@@ -3,17 +3,9 @@
     $std_id=$_GET['std_id'];
     $row=mysqli_fetch_array($con->query("SELECT * FROM student s,major m WHERE s.major_id=m.major_id  and std_id='$std_id'"));    
     $ord_list=$con->query("SELECT * FROM product,orders,order_list WHERE product.pro_id=order_list.pro_id and orders.ord_id=order_list.ord_id and orders.std_id='$std_id'");
-    if(isset($_POST['edit'])){
-        $name=$_POST['name'];
-        $eng_name=$_POST['eng_name'];
-        $major=$_POST['major'];        
-        $status=$_POST['status'];
-        $weight=$_POST['weight'];
-        $height=$_POST['height'];
-        $tels=$_POST['tels'];
-        $telp=$_POST['telp'];
-        $upd_data=$con->query("UPDATE student SET name='$name',eng_name='$eng_name',
-        weight='$weight',height='$height',tels='$tels',telp='$telp',status='$status' WHERE std_id='$std_id'");
+    if(isset($_POST['edit'])){                  
+        $status=$_POST['status'];        
+        $upd_data=$con->query("UPDATE student SET status='$status' WHERE std_id='$std_id'");
         if(!$upd_data){
             echo "<script>alert('ไม่สามารถบันทึกข้อมูลได้')</script>";
         }else{

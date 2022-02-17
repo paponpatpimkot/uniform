@@ -4,8 +4,7 @@
     $std_id=$_GET['std_id'];        
     $sql="SELECT * FROM student,major WHERE student.major_id=major.major_id AND std_id='$std_id'";
     $std_data=mysqli_fetch_array($con->query($sql));    
-    $_SESSION['std_id']=$std_data['std_id'];
-    $_SESSION['major_id']=$std_data['major_id'];
+    $_SESSION['std_id']=$std_data['std_id'];    
     if($std_data['status']==1){
         echo "<script>alert('คุณกรอกข้อมูลการวัดตัวและทำการยืนยันข้อมูลไปแล้ว ไม่สามารถกรอกข้อมูลได้อีก');
         window.location.href='completed.php';</script>";

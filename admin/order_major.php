@@ -1,5 +1,10 @@
 <?php
   include '../config/connect.php';
+  $sql="select * from student,orders where         
+        student.ord_id=orders.ord_id
+        and std_id=''";
+  $r=$con->query($sql);
+  $row=mysqli_fetch_array($r);
 ?>
 <section class="content-header">
     <div class="container-fluid">
@@ -20,7 +25,7 @@
       <div class="row">        
           <div class="col-md-1"></div>                              
           <div class="col-md-10 mb-3">
-
+              <?php echo $row['name'];?>
           </div>              
           <div class="col-md-1"></div>        
       </div><!-- row-->    
