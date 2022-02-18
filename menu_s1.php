@@ -71,7 +71,7 @@
             </a>
           </li>
           
-      <div class="user-panel mt-2 pb-3 mb-2 d-flex"></div>                
+          <div class="user-panel mt-2 pb-3 mb-2 d-flex"></div>                
           <li class="nav-item">
             <a href="logout.php" class="nav-link text-danger">
               <i class="nav-icon fas fa-power-off"></i>

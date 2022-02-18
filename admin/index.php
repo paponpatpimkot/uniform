@@ -1,10 +1,17 @@
+<?php    
+    session_start();
+    $username=$_SESSION['username'];
+    if($username==""){
+        echo "<script>window.location.href='login.php'</script>";
+    }else{    
+?>
 <!DOCTYPE html>
 <html>
     <head>
     <META HTTP-EQUIV="Refresh" CONTENT="180;URL=index.php">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ระบบสั่งชุดเครื่องแบบนักศึกษาและอุปกรณ์การเรียน</title>
+    <title>Admin TATC-SHOP</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -104,4 +111,4 @@
         </script>
     </body>
 </html>
-        
+   <?php } ?>

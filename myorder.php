@@ -1,9 +1,8 @@
 <?php
     include 'config/connect.php';
-    $std_id=$_SESSION['std_id'];
-    $myorder=$con->query("select * from orders,order_list,product where product.pro_id=order_list.pro_id and orders.ord_id=order_list.ord_id and orders.std_id='$std_id'");    
-    $num=mysqli_num_rows($myorder);    
-    if($num==0){?>
+    $myorder=$con->query("select * from product,orders,order_list where orders.ord_id=order_list.ord_id and product.pro_id=order_list.pro_id and std_id='$std_id'");
+    $num_rows=mysqli_num_rows($myorder);
+    if($num_rows==0){?>
         <div class="alert alert-info alert-dismissible text-center">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h5><i class="icon fas fa-info"></i> Alert!</h5>
@@ -18,7 +17,7 @@
     <div class="alert alert-info alert-dismissible text-center">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h5><i class="icon fas fa-info"></i> Alert!</h5>
-        <h4>นักศึกษาสาขาวิชาการบัญชี ให้มาวัดตัวตัดชุดสูทในวันอาทิตย์ที่ 27 กุมภาพันธ์ 2565 ตั้งแต่เวลา 08.30-12.00 น. ที่โดมเอนกประสงค์</h4>        
+        <h4>นักศึกษาสาขาวิชาการบัญชี ให้มาวัดตัวตัดชุดสูทในวันอาทิตย์ที่ 27 กุมภาพันธ์ 2565 ตั้งแต่เวลา 08.30-12.00 น. ที่แผนกวิชาการบัญชี</h4>        
     </div>
 <?php }if($std_data['major_id']=='30126' || $std_data['major_id']=='30138' || $std_data['major_id']=='20701' || $std_data['major_id']=='20702'
     || $std_data['major_id']=='30701' || $std_data['major_id']=='30702' || $std_data['major_id']=='30221'){ ?>
@@ -27,7 +26,7 @@
         <h5><i class="icon fas fa-info"></i> Alert!</h5>
         <h5>นักศึกษาสาขาวิชาช่างอากาศยาน สาขาวิชาเทคนิคควบคุมและซ่อมบำรุงระบบขนส่งทางราง สาขาวิชาธุรกิจการบิน สาขาวิชาการโรงแรม 
             และสาขาวิชาการท่องเที่ยว ทั้ง ปวช. ปวส. ให้มาวัดตัวตัดชุดเครื่องแบบเฉพาะของสาขาวิชาในวันอาทิตย์ที่ 6 มีนาคม 2565 
-            ตั้งแต่เวลา 08.30-12.00 น. ที่โดมเอนกประสงค์
+            ตั้งแต่เวลา 08.30-12.00 น. ที่แผนกวิชาการโรงแรม
         </h5>        
     </div>
     <?php } ?>
@@ -73,25 +72,59 @@
                                 <td align="left"><?php echo $row['note1']." ".$row['note2']?></td>
                             </tr>                            
                             <?php } ?>                               
-                        </table>  
-                        <br><br> 
-                        <span class="text-danger">**กรุณาตรวจสอบข้อมูลให้แน่ใจว่าได้เลือกขนาดครบทุกรายการแล้วจึงกดปุ่มยืนยัน เพราะถ้ากดปุ่มยืนยันแล้วจะไม่สามารถแก้ไขเพิ่มเติมข้อมูลได้อีก**</span>
-                        <br><br>
-                        <?php  
-                            if(isset($_POST['cf'])){
-                                $status=$con->query("update student set status=1 where std_id='$std_id'");
-                                if($status){                                    
-                                    echo "<script>window.location.href='completed.php'</script>";
-                                }
-                            }
-                        ?>
-                        <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
-                            <input type="submit" class="btn btn-success w-100" value="ยืนยันข้อมูล" name="cf" 
-                            onclick="confirm('เมื่อยืนยันข้อมูลแล้วจะไม่สามารถแก้ไขข้อมูลได้อีก คุณแน่ใจหรือไม่?')">
-                        </form>
+                    </table>  
+                    <br>
+                    <h5 class="text-danger">เลือกขนาดให้ครบทุกรายการตามเมนูด้านซ้าย</h5>
+                    <span class="text-primary">ไม่มีค่าใช้จ่ายใด ๆ เพิ่มเติมจากที่ได้ชำระไปแล้วตอนมอบตัว</span>
                         
-                        <br><br>                                                                         
-                        <?php include 'contact.php'; ?>            
+                    <?php                              
+                        $major_id=$std_data['major_id'];
+                        if(($major_id=='20101'|| $major_id=='20102' || $major_id=='20103' || $major_id=='20104' || $major_id=='20105' || $major_id=='20110' || $major_id=='20127')
+                            && ($std_data['prename']=='นาย') && ($num_rows==7)){
+                           include 'update_status.php';
+                        }elseif(($major_id=='20101'|| $major_id=='20102' || $major_id=='20103' || $major_id=='20104' || $major_id=='20105' || $major_id=='20110' || $major_id=='20127') 
+                            && ($std_data['prename']='นางสาว') && ($num_rows==9)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='20106' || $major_id=='20128' || $major_id=='20901') && ($std_data['prename']=='นาย')&&($num_rows==6)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='20106' || $major_id=='20128' || $major_id=='20901') && ($std_data['prename']=='นางสาว')&&($num_rows==8)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='20201' || $major_id=='20204' || $major_id=='20701' || $major_id=='20702') && ($std_data['prename']=='นาย')&&($num_rows==7)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='20201' || $major_id=='20204' || $major_id=='20701' || $major_id=='20702') && ($std_data['prename']=='นางสาว')&&($num_rows==7)){
+                            include 'update_status.php';                
+                        }elseif(($major_id=='30101' || $major_id=='30102' || $major_id=='30104' || $major_id=='30105' || $major_id=='30106' || $major_id=='30110' || $major_id=='30113'
+                        || $major_id=='30120' || $major_id=='30127' || $major_id=='30128' || $major_id=='30901' || $major_id=='30214') && ($std_data['prename']=='นาย') && ($num_rows==6)){
+                            include 'update_status.php';                
+                        }elseif(($major_id=='30101' || $major_id=='30102' || $major_id=='30104' || $major_id=='30105' || $major_id=='30106' || $major_id=='30110' || $major_id=='30113'
+                        || $major_id=='30120' || $major_id=='30127' || $major_id=='30128' || $major_id=='30901' || $major_id=='30214') && ($std_data['prename']=='นางสาว')&&($num_rows==6)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30101-1' || $major_id=='30103' || $major_id=='30118') && ($std_data['prename']=='นาย')&&($num_rows==7)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30101-1' || $major_id=='30103' || $major_id=='30118') && ($std_data['prename']=='นางสาว')&&($num_rows==7)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30211') && ($std_data['prename']=='นาย')&&($num_rows==4)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30211') && ($std_data['prename']=='นางสาว')&&($num_rows==4)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30201' || $major_id=='30701' || $major_id=='30702') && ($std_data['prename']=='นาย')&&($num_rows==4)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30201' || $major_id=='30701' || $major_id=='30702') && ($std_data['prename']=='นางสาว')&&($num_rows==4)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30138') && ($std_data['prename']=='นาย')&&($num_rows==2)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30138') && ($std_data['prename']=='นางสาว') &&($num_rows==2)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30126') && ($std_data['prename']=='นาย') &&($num_rows==2)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30126') && ($std_data['prename']=='นางสาว') &&($num_rows==2)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30221') && ($std_data['prename']=='นาย') &&($num_rows==4)){
+                            include 'update_status.php';
+                        }elseif(($major_id=='30221') && ($std_data['prename']=='นางสาว') &&($num_rows==4)){
+                            include 'update_status.php';
+                        }                                                
+                    ?>                                                
             </div>
         </div>
     </div>

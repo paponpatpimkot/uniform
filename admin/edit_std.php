@@ -3,9 +3,17 @@
     $std_id=$_GET['std_id'];
     $row=mysqli_fetch_array($con->query("SELECT * FROM student s,major m WHERE s.major_id=m.major_id  and std_id='$std_id'"));    
     $ord_list=$con->query("SELECT * FROM product,orders,order_list WHERE product.pro_id=order_list.pro_id and orders.ord_id=order_list.ord_id and orders.std_id='$std_id'");
-    if(isset($_POST['edit'])){                  
-        $status=$_POST['status'];        
-        $upd_data=$con->query("UPDATE student SET status='$status' WHERE std_id='$std_id'");
+    if(isset($_POST['edit'])){  
+        $name=$_POST['name']      ;
+        $eng_name=$_POST['eng_name'];
+        $major=$_POST['major'];        
+        $status=$_POST['status'];
+        $weight=$_POST['weight'];
+        $height=$_POST['height'];
+        $tels=$_POST['tels'];
+        $telp=$_POST['telp'];
+        $upd_data=$con->query("UPDATE student SET name='$name',eng_name='$eng_name',weight='$weight',height='$height'
+        ,tels='$tels',telp='$telp',status='$status' WHERE std_id='$std_id'");
         if(!$upd_data){
             echo "<script>alert('ไม่สามารถบันทึกข้อมูลได้')</script>";
         }else{
@@ -30,31 +38,31 @@
             <form role="form" action="<?php $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">                          
                 <div class="form-group">
                   <label>ชื่อ-สกุล</label>
-                  <input type="text" class="form-control" name="name" value=<?php echo $row['name']?>>
+                  <input type="text" class="form-control" name="name" value="<?php echo $row['name']?>">
                 </div>
                 <div class="form-group">
                   <label>ชื่อภาษาอังกฤษ</label>
-                  <input type="text" class="form-control" name="password" value=<?php echo $row['eng_name']?>>
+                  <input type="text" class="form-control" name="eng_name" value="<?php echo $row['eng_name']?>">
                 </div>
                 <div class="form-group">
                   <label>สาขา</label>
-                  <input type="text" class="form-control" name="fname" value=<?php echo $row['major_name']?>>
+                  <input type="text" class="form-control" name="major" value="<?php echo $row['major_name']?>">
                 </div>
                 <div class="form-group">
                   <label>น้ำหนัก</label>
-                  <input type="text" class="form-control" name="weight" value=<?php echo $row['weight']?>>
+                  <input type="text" class="form-control" name="weight" value="<?php echo $row['weight']?>">
                 </div> 
                 <div class="form-group">
                   <label>ส่วนสูง</label>
-                  <input type="text" class="form-control" name="height" value=<?php echo $row['height']?>>
+                  <input type="text" class="form-control" name="height" value="<?php echo $row['height']?>">
                 </div>
                 <div class="form-group">
                   <label>เบอร์โทรศัพท์นักเรียน</label>
-                  <input type="text" class="form-control" name="fname" value=<?php echo $row['tels']?>>
+                  <input type="text" class="form-control" name="tels" value="<?php echo $row['tels']?>">
                 </div>
                 <div class="form-group">
                   <label>เบอร์โทรศัพท์ผู้ปกครอง</label>
-                  <input type="text" class="form-control" name="fname" value=<?php echo $row['telp']?>>
+                  <input type="text" class="form-control" name="telp" value="<?php echo $row['telp']?>">
                 </div>
                 <div class="form-group">
                   <label>สถานะ</label>
@@ -83,7 +91,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">size</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="size" value=<?php echo $row2['size']?>>                                    
+                          <input type="text" class="form-control" name="size" value="<?php echo $row2['size']?>">                                    
                         </div>
                       </div>
                     </div>
@@ -91,7 +99,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">จำนวน</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="qty" value=<?php echo $row2['qty']?>>
+                          <input type="text" class="form-control" name="qty" value="<?php echo $row2['qty']?>">
                         </div>
                       </div> 
                     </div>

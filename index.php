@@ -15,7 +15,7 @@ if($std_id==""){
         $size=$s;
         $qty=$q;
         $note1=$n1;
-        $note2=$n2;        
+        $note2=$n2;
         $exits_ord=$con->query("select * from orders where std_id='$std_id'");
         $row_exits_ord=mysqli_num_rows($exits_ord);
         $data_exits_ord=mysqli_fetch_array($exits_ord);        
@@ -23,20 +23,29 @@ if($std_id==""){
             $ord_id=$data_exits_ord['ord_id'];
             $exits_ord_list=mysqli_num_rows($con->query("select * from order_list where ord_id='$ord_id' and pro_id='$pro_id'"));
             if($exits_ord_list==1){
-                $con->query("update order_list set size='$size',note1='$note1',note2='$note2',qty='$qty' where pro_id='$pro_id'");            
+                $con->query("update order_list set size='$size',note1='$note1',note2='$note2',qty='$qty' where ord_id = '$ord_id' and pro_id='$pro_id'");            
             }else{
-                $con->query("insert into order_list values('$ord_id','$pro_id','$size','$qty','$note1','$note2')");                  
+                $ord_id=$data_exits_ord['ord_id'];
+                $con->query("insert into order_list values('$ord_id','$pro_id','$size','$qty','$note1','$note2')");               
+                
             }
         }else{
-            $ins=$con->query("insert into orders values('','$std_id','$date')");
-            if($ins){
+            $result = $con->query("SELECT * FROM student WHERE std_id = '$std_id'");
+            $row = mysqli_fetch_array($result);
+            $std = $row['std_id'];
+            
+            $ins=$con->query("insert into orders values('$std','$std_id','$date')");
+            
+            $result = mysqli_fetch_array($con->query("SELECT * FROM orders WHERE std_id = '$std'"));
+            $id=$result['ord_id'];
+            $con->query("insert into order_list values('$id','$pro_id','$size','$qty','$note1','$note2')");
+            /*if($ins){
                 //$ord_id=$con->insert_id;          
-                $ord_id=mysqli_fetch_array($con->query("select * from orders where orders.std_id='$std_id'"));
-                $id=$ord_id['ord_id'];
-                $con->query("insert into order_list values('$id','$pro_id','$size','$qty','$note1','$note2')");                                            
-            }
-        } 
-        
+                $ord_id=mysqli_fetch_array($con->query("select * from student,orders where student.std_id=orders.std_id and std_id='$std_id'"));
+                
+                                                        
+            }*/
+        }        
     }
 ?>
 
@@ -143,7 +152,7 @@ if($std_id==""){
             </div><!-- /.content-wrapper -->            
             <footer class="main-footer">
                 <div class="float-right d-none d-sm-block">
-                <b>Version</b> 1.0.0
+                <span>มีปัญหาเกี่ยวกับการใช้งานระบบ ติดต่อ <a href="http://m.me/417376854964288" target="_blank"><img src="img/messenger.jpg" width="20"></a></span>
                 </div>
                 <strong>Copyright &copy; 2021 Thai-Austrian technical college</strong> All rights
                 reserved.

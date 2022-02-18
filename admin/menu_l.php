@@ -11,7 +11,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">        
         <div class="info">
-          <a href="index.php" class="d-block">สำหรับเจ้าหน้าที่</a>
+          <a href="index.php" class="d-block"><i class="fa fa-home mx-2"></i>Dashboard</a>
         </div>
       </div>       
 
