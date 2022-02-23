@@ -15,8 +15,17 @@
         case "order_major":
             include 'order_major.php';
             break;
+        case "order_majorf":
+            include 'order_majorf.php';
+            break;            
         case "product":
             include 'product.php';
+            break;
+        case "noconfirm":
+            include 'noconfirm.php';
+            break;
+        case "add_std":
+            include 'add_std.php';
             break;
         default:
             include 'dashboard.php';

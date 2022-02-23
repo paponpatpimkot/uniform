@@ -54,7 +54,7 @@ if(isset($_POST['add_mstd'])){
                 </div>
                 <div class="col-md-2">
                     <br>
-                    <a class="btn btn-success text-white mt-2" data-toggle="modal" data-target="#exampleModal">                    
+                    <a class="btn btn-success text-white mt-2" href="index.php?page=add_std">                    
                         <i class="fa fa-user-plus"></i>เพิ่มข้อมูลทีละคน
                     </a>                
                 </div>

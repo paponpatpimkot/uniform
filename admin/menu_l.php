@@ -11,7 +11,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">        
         <div class="info">
-          <a href="index.php" class="d-block"><i class="fa fa-home mx-2"></i>Dashboard</a>
+          <a href="index.php" class="d-block">Dashboard</a>
         </div>
       </div>       
 
@@ -49,9 +49,15 @@
           <li class="nav-item">
             <a href="index.php?page=order_major" class="nav-link">  
             <i class="nav-icon fas fa-school"></i>                       
-              <p>ออเดอร์แยกตามสาขาวิชา</p>
+              <p>ออเดอร์แยกตามสาขาวิชา (ชาย)</p>
             </a>
-          </li>                    
+          </li>
+          <li class="nav-item">
+            <a href="index.php?page=order_majorf" class="nav-link">  
+            <i class="nav-icon fas fa-school"></i>                       
+              <p>ออเดอร์แยกตามสาขาวิชา (หญิง)</p>
+            </a>
+          </li>                             
       <div class="user-panel mt-2 pb-3 mb-2 d-flex"></div>                
           <li class="nav-item">
             <a href="logout.php" class="nav-link text-danger">

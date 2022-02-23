@@ -1,9 +1,7 @@
-<?php    
+<?php  
+    error_reporting(0);
     session_start();
-    $username=$_SESSION['username'];
-    if($username==""){
-        echo "<script>window.location.href='login.php'</script>";
-    }else{    
+    $username=$_SESSION['username'];    
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,8 +52,16 @@
     <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed text-sm">
     <!-- Site wrapper -->
         <div class="wrapper">
-            <?php include ("navbar.php"); ?>
-            <?php include ("menu_l.php"); ?>
+            <?php 
+                include 'navbar.php'; 
+                if($username=="admin"){
+                    include 'menu_l.php'; 
+                }elseif($username==""){
+                    include 'menu.php';
+                }else{
+                    echo "<script>window.location.href=login.php</script>";
+                }
+            ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper" style="background:#dfecf5">
                 <?php
@@ -110,5 +116,4 @@
         });
         </script>
     </body>
-</html>
-   <?php } ?>
+</html>   
